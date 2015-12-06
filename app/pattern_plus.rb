@@ -4,11 +4,12 @@ class PatternPlus
   end
 
   def matches?(scanner)
-    matched? = false
+    matched = false
     while scanner.has_next? do
-      matched? ||= @pattern.matches?(scanner)
+      result = @pattern.matches?(scanner)
+      matched ||= result
     end
-    matched?
+    matched
   end
 
 end
