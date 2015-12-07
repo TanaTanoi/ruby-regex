@@ -23,7 +23,6 @@ class PatternComposite
 
   def inspect
   "PatternComposite(#{ @patterns.inject(""){|x,p| x+=p.to_s+ " " } })"
-
   end
 
 end
