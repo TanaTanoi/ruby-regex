@@ -48,20 +48,20 @@ class Compiler
       patterns = []
       patterns << @regex_patterns.pop until patterns.last == :paren_open_marker
       patterns.pop
-      @regex_patterns.push PatternComposite.new(patterns)
+      @regex_patterns.push PatternComposite.new(patterns.reverse)
     elsif char == SPECIAL_CHARS[:square_open]
       @regex_patterns.push(:square_open_marker)
     elsif char == SPECIAL_CHARS[:square_close]
       patterns = []
       patterns << @regex_patterns.pop until patterns.last == :square_open_marker
       patterns.pop
-      @regex_patterns.push PatternExplicitChars.new(patterns)
+      @regex_patterns.push PatternExplicitChars.new(patterns.reverse)
     elsif char == SPECIAL_CHARS[:quant_open]
       @regex_patterns.push(:quant_open_marker)
     elsif char == SPECIAL_CHARS[:quant_close]
       patterns = []
       patterns << @regex_patterns.pop until patterns.last == :quant_open_marker
-      patterns.pop
+      patterns.reverse!.shift
       patterns = patterns.map { |p| p.char }.join
       ((patterns.to_i) - 1).times { @regex_patterns.push @regex_patterns.last }
     else

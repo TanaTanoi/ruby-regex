@@ -1,5 +1,4 @@
 class RegexObject
-
   def initialize(regex_patterns = [])
     @patterns = [regex_patterns].flatten
     process_options
@@ -29,9 +28,9 @@ class RegexObject
         regex_index += 1
       else
         regex_index = 0
-        return (puts "false")!=nil if @options[:starts_with]
+        return false if @options[:starts_with]
       end
     end
-    puts regex_index == @patterns.length
+    regex_index == @patterns.length
   end
 end
