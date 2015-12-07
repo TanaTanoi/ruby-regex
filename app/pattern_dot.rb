@@ -1,5 +1,5 @@
 class PatternDot
   def matches?(scanner)
-    true if scanner.scan!
+    scanner.scan! != nil
   end
 end
