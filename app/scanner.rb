@@ -12,4 +12,8 @@ class Scanner
   def has_next?
     @index < @source.length
   end
+
+  def move_back
+    @index -= 1
+  end
 end

@@ -38,6 +38,13 @@ class Compiler
       @regex_char.shift
     elsif char == SPECIAL_CHARS[:start_of_string]
       @regex_patterns.push PatternStart.new
+    elsif char == SPECIAL_CHARS[:paren_open]
+      @regex_patterns.push(:paren_open_marker)
+    elsif char == SPECIAL_CHARS[:paren_close]
+      patterns = []
+      patterns << @regex_patterns.pop until patterns.last == :paren_open_marker
+      patterns.pop
+      @regex_patterns.push PatternComposite.new(patterns)
     else
       fail "ur regex sux"
     end
