@@ -27,6 +27,8 @@ class Compiler
   def parse_char(char)
     if !SPECIAL_CHARS.has_value?(char)
       @regex_patterns.push PatternLiteral.new(char)
+    elsif char == SPECIAL_CHARS[:start_of_string]
+      @regex_patterns.push PatternStart.new
     elsif char == SPECIAL_CHARS[:dot]
       @regex_patterns.push PatternDot.new
     elsif char == SPECIAL_CHARS[:plus]
@@ -36,8 +38,8 @@ class Compiler
     elsif char == SPECIAL_CHARS[:literal]
       @regex_patterns.push PatternLiteral.new(@regex_char.first)
       @regex_char.shift
-    elsif char == SPECIAL_CHARS[:start_of_string]
-      @regex_patterns.push PatternStart.new
+    elsif char == SPECIAL_CHARS[:end_of_string]
+      @regex_patterns.push PatternEnd.new(PatternComposite.new(@regex_patterns))
     else
       fail "ur regex sux"
     end
