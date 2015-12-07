@@ -3,4 +3,4 @@ require_relative 'require_block'
 
 x = Compiler.new("ab?c").compile_regex
 
-x.contained_in?("ac")
+puts x.contained_in?("ac")
