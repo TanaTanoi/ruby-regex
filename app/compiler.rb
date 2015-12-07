@@ -11,6 +11,8 @@ class Compiler
     literal: "\\",
     start_of_string: "^",
     end_of_string: "$",
+    quant_open: "{",
+    quant_close: "}",
   }
 
 
@@ -47,6 +49,14 @@ class Compiler
       patterns << @regex_patterns.pop until patterns.last == :paren_open_marker
       patterns.pop
       @regex_patterns.push PatternComposite.new(patterns)
+    elsif char == SPECIAL_CHARS[:quant_open]
+      @regex_patterns.push(:quant_open_marker)
+    elsif char == SPECIAL_CHARS[:quant_close]
+      patterns = []
+      patterns << @regex_patterns.pop until patterns.last == :quant_open_marker
+      patterns.pop
+      patterns = patterns.map { |p| p.char }.join
+      ((patterns.to_i) - 1).times { @regex_patterns.push @regex_patterns.last }
     else
       fail "ur regex sux"
     end
