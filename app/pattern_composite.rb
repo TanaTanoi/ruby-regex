@@ -22,7 +22,8 @@ class PatternComposite
   end
 
   def inspect
-    "PatternComposite(#{ patterns.inject{|x,p| x+=p.inspect+ " " } })"
+  #  "PatternComposite(#{ patterns.inject{|x,p| x+=p.to_s+ " " } })"
+  "pattern comp"
   end
 
 end

@@ -39,7 +39,7 @@ class Compiler
       @regex_patterns.push PatternLiteral.new(@regex_char.first)
       @regex_char.shift
     elsif char == SPECIAL_CHARS[:end_of_string]
-      @regex_patterns.push PatternEnd.new(PatternComposite.new(@regex_patterns))
+      @regex_patterns = [PatternEnd.new(PatternComposite.new(@regex_patterns))]
     elsif char == SPECIAL_CHARS[:paren_open]
       @regex_patterns.push(:paren_open_marker)
     elsif char == SPECIAL_CHARS[:paren_close]

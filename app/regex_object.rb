@@ -16,7 +16,6 @@ class RegexObject
       @patterns.shift
       @options[:starts_with] = true
     elsif @patterns.last.is_a? PatternEnd
-      @patterns.pop
       @options[:ends_with] = true
     end
   end
