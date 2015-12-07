@@ -47,6 +47,13 @@ class Compiler
       patterns << @regex_patterns.pop until patterns.last == :paren_open_marker
       patterns.pop
       @regex_patterns.push PatternComposite.new(patterns)
+    elsif char == SPECIAL_CHARS[:square_open]
+      @regex_patterns.push(:square_open_marker)
+    elsif char == SPECIAL_CHARS[:square_close]
+      patterns = []
+      patterns << @regex_patterns.pop until patterns.last == :square_open_marker
+      patterns.pop
+      @regex_patterns.push PatternExplicitChars.new(patterns)
     else
       fail "ur regex sux"
     end
