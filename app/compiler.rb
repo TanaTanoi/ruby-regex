@@ -34,6 +34,9 @@ class Compiler
     elsif char == SPECIAL_CHARS[:start_of_string]
       @regex_patterns.push PatternStart.new
 
+    elsif char == SPECIAL_CHARS[:optional]
+      @regex_patterns[@regex_patterns.size-1] = PatternOptional.new(@regex_patterns.last)
+
     elsif char == SPECIAL_CHARS[:dot]
       @regex_patterns.push PatternDot.new
 
@@ -77,9 +80,6 @@ class Compiler
       patterns.reverse!.shift
       patterns = patterns.map { |p| p.char }.join.to_i
       (patterns - 1).times { @regex_patterns.push @regex_patterns.last }
-
-    elsif char == SPECIAL_CHARS[:optional]
-      @regex_patterns[@regex_patterns.size-1] = PatternOptional.new(@regex_patterns.last)
 
     else
       fail "ur regex sux"

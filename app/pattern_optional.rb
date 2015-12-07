@@ -5,7 +5,7 @@ class PatternOptional
 
   def matches?(scanner)
     @pattern.matches?(scanner) != nil
-    #  scanner.move_back
+    scanner.move_back
     #end
     #true
   end
