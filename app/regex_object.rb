@@ -1,5 +1,4 @@
 class RegexObject
-
   def initialize(regex_patterns = [])
     @patterns = [regex_patterns].flatten
     process_options
@@ -23,15 +22,18 @@ class RegexObject
   def contained_in?(source)
     scanner = Scanner.new(source)
     regex_index = 0
+    scan_index = 0
     #TODO refactor this nastay code
     while scanner.has_next? && (regex_index < @patterns.length || @options[:ends_with])
       if @patterns[regex_index].matches?(scanner)
+        scan_index = scanner.index if regex_index == 0
         regex_index += 1
       else
+        scanner.index = scan_index + 1
         regex_index = 0
-        return (puts "false")!=nil if @options[:starts_with]
+        return false if @options[:starts_with]
       end
     end
-    puts regex_index == @patterns.length
+    regex_index == @patterns.length
   end
 end

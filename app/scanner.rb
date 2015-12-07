@@ -1,4 +1,5 @@
 class Scanner
+  attr_accessor :index
   def initialize(source)
     @source = source.chars
     @index = 0
@@ -16,4 +17,5 @@ class Scanner
   def move_back
     @index -= 1
   end
+
 end
